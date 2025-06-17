@@ -1,1 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login Page</title>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: sans-serif;
+    }
+    .login-box {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: #f0f0f0;
+    }
+    form {
+      background: white;
+      padding: 2rem;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      border-radius: 8px;
+      width: 300px;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 0.5rem 0;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    input[readonly] {
+      background-color: #eee;
+      cursor: not-allowed;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: royalblue;
+      border: none;
+      color: white;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .message {
+      margin-top: 1rem;
+      font-weight: bold;
+      text-align: center;
+    }
+    iframe.fullscreen {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      border: none;
+      z-index: 999;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-box" id="login-container">
+    <h2>Login</h2>
+    <form id="login-form">
+      <input type="text" name="username" placeholder="Username" required />
+      <input type="password" name="password" placeholder="Password" required />
+      <button type="submit">Log In</button>
+      <div id="message" class="message"></div>
+    </form>
+  </div>
 
+  <script>
+    window.onload = () => {
+      const form = document.getElementById('login-form');
+      const usernameInput = form.querySelector('input[name="username"]');
+      const passwordInput = form.querySelector('input[name="password"]');
+      const message = document.getElementById('message');
+      const savedUsername = localStorage.getItem('username');
+      const savedPassword = localStorage.getItem('password');
+
+      if (savedUsername && savedPassword) {
+        usernameInput.value = savedUsername;
+        usernameInput.readOnly = true;
+      }
+
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const username = usernameInput.value;
+        const password = passwordInput.value;
+
+        if (!savedUsername || !savedPassword) {
+          localStorage.setItem('username', username);
+          localStorage.setItem('password', password);
+          usernameInput.readOnly = true;
+          message.textContent = 'Account created! You can now log in.';
+          message.className = 'message success';
+        } else {
+          if (password === savedPassword) {
+
+              
+            document.getElementById('login-container').style.display = 'none';
+
+            const iframe = document.createElement('iframe');
+            iframe.src = 'https://innovation-software-technologies.github.io/innovation-os-hidden/'; // replace with current URL
+            iframe.className = 'fullscreen';
+            document.body.appendChild(iframe);
+          } else {
+            message.textContent = 'Incorrect password.';
+            message.className = 'message error';
+          }
+        }
+      });
+    };
+  </script>
+</body>
+</html>
