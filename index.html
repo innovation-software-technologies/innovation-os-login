@@ -95,7 +95,7 @@
           localStorage.setItem('username', username);
           localStorage.setItem('password', password);
           usernameInput.readOnly = true;
-          message.textContent = 'Account created! You can now log in.';
+          message.textContent = 'Account created! Refresh page and login to validate.';
           message.className = 'message success';
         } else {
           if (password === savedPassword) {
