@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Innovation OS</title>
+  <title>Sign In to Innovation OS</title>
   <style>
     :root {
       --bg-color: #f0f0f0;
@@ -176,6 +176,8 @@
             const iframe = document.createElement('iframe');
             iframe.src = 'https://innovation-software-technologies.github.io/innovation-os-hidden/';
             iframe.className = 'fullscreen';
+            newPageTitle = 'Innovation OS';
+            document.title = newPageTitle;
             document.body.appendChild(iframe);
           } else {
             message.textContent = 'Incorrect password.';
